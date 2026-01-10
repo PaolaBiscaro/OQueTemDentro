@@ -7,5 +7,4 @@ export async function questaoController(req, res) {
         status: "Ok",
         resposta: resultado
     });
-}
-
+};
