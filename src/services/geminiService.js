@@ -1,15 +1,23 @@
-import {questaoGemini} from "../data/geminiData.js"
-
-let stringLista = "Polybutene, paraffinum liquidum, tocopheryl acetate";
-let categoriaProduto = "cosmetico";
+import { questaoGemini } from "../data/geminiData.js"
 
 
-const TEXT_PROMPT = `
+export async function processar(categoria, listaIngredientes) {
+  console.log(categoria);
+
+  if (!listaIngredientes || !categoria) {
+    console.error("Erro: Categoria ou Lista de Ingredientes não foram fornecidas.");
+
+    return "Erro: Por favor, selecione uma categoria e digite os ingredientes.";
+
+  } else {
+
+    console.log
+    const TEXT_PROMPT = `
 Contexto:
 Sou um consumidor que deseja entender a função dos ingredientes de um produto antes de comprá-lo.
 
 Tarefa:
-Explique o significado e a finalidade de cada ingrediente da lista ${stringLista}, considerando que o produto pertence á categoria ${categoriaProduto}.
+Explique o significado e a finalidade de cada ingrediente da lista ${listaIngredientes}, considerando que o produto pertence á categoria ${categoria}.
 Para cada ingrediente, responda:
 - Por que ele está presente nesse tipo de produto?
 - Qual sua função?
@@ -35,7 +43,12 @@ Fontes:
 - Preferencialmente sites técnicos ou científicos
 
 `;
-
-export async function procesarPrompt() {
+    //console.log(TEXT_PROMPT)
     return await questaoGemini(TEXT_PROMPT);
+  }
+
+
+
+
+
 }

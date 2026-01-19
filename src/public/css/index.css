@@ -1,0 +1,129 @@
+nav {
+    background-color: #46393a;
+}
+
+
+.img {
+    width: 350px;
+}
+
+.categoria {
+    background-color: #46393a;
+    border-radius: 20px;
+}
+
+.texto-informativo {
+    color: #d9d9d9;
+    font-size: 0.9rem;
+}
+
+a {
+    text-decoration: none;
+    color: #d9d9d9;
+    padding: 2px;
+}
+
+a:hover {
+    background-color: #665151;
+}
+
+a p {
+    font-size: 0.9rem;
+}
+
+a p:hover {
+    color: #fff;
+}
+
+a.active {
+    background-color: #665151;
+    color: white;  
+    text-decoration: underline;            
+}
+
+
+
+.bottom-bar {
+    z-index: 1000;
+}
+
+.conteudo {
+    padding-bottom: 160px;
+}
+
+.barra-pesquisa {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #46393a;
+
+}
+
+.barra-pesquisa-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: #46393a;
+    color: #fff;
+    padding-left: 10px;
+
+}
+
+.formulario {
+    background-color: #46393a;
+    border-radius: 30px;
+    padding: 10px 20px 10px 20px
+}
+
+.rodape {
+    padding-bottom: 1.5rem;
+}
+
+.btn-adicionar {
+    background-color: #ffffff00;
+    border: none;
+}
+
+.popover {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+
+.popup {
+    background-color: #46393a;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+}
+
+.popover-body {
+    background-color: transparent;
+    padding: 0;
+}
+
+
+.popup button {
+    background-color: #46393a;
+    color: white;
+    border: none;
+    text-align: left; 
+}
+
+.popup button:hover{
+    background-color: #665151;
+    color: #fff;
+}
+
+.popover-arrow {
+    --bs-popover-bg: transparent;
+    background-color: transparent;
+}
+
+
+.popover-body {
+    background-color: transparent;
+    padding: 0;
+}

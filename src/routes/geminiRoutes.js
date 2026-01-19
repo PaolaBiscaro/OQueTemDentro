@@ -3,6 +3,6 @@ import {questaoController} from "../controllers/geminiController.js";
 
 const router = Router();
 
-router.get("/", questaoController)
+router.get("/perguntas", questaoController)
 
 export default router;
