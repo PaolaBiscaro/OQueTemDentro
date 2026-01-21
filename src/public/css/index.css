@@ -37,8 +37,8 @@ a p:hover {
 
 a.active {
     background-color: #665151;
-    color: white;  
-    text-decoration: underline;            
+    color: white;
+    text-decoration: underline;
 }
 
 
@@ -58,22 +58,41 @@ a.active {
     background-color: #46393a;
 
 }
-
-.barra-pesquisa-input {
-    flex: 1;
-    border: none;
-    outline: none;
-    background-color: #46393a;
-    color: #fff;
-    padding-left: 10px;
-
-}
-
 .formulario {
     background-color: #46393a;
     border-radius: 30px;
-    padding: 10px 20px 10px 20px
+
+    display: flex;
+    align-items: center;
+
+    padding: 6px 12px;
 }
+
+/* textarea estilo WhatsApp */
+.barra-pesquisa-input {
+    resize: none;
+    overflow-y: auto;
+
+    border: none;
+    outline: none;
+
+    flex: 1;
+    background-color: transparent;
+    color: #fff;
+
+    padding: 0;
+    margin: 0;
+
+    min-height: 20px;        
+    max-height: 60px;
+
+    font-size: 14px;
+    line-height: 20px;       
+    font-family: inherit;
+
+    box-sizing: border-box;
+}
+
 
 .rodape {
     padding-bottom: 1.5rem;
@@ -109,10 +128,10 @@ a.active {
     background-color: #46393a;
     color: white;
     border: none;
-    text-align: left; 
+    text-align: left;
 }
 
-.popup button:hover{
+.popup button:hover {
     background-color: #665151;
     color: #fff;
 }
