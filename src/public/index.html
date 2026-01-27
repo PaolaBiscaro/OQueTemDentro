@@ -38,7 +38,7 @@
 
     <main class="flex-grow-1 d-flex justify-content-center align-items-center text-center conteudo">
         <div class="container">
-            <img class="img mb-3" src="/img/logo-branco.png">
+            <img class="logo mb-3" src="/img/logo-branco.png">
 
             <h2>Sobre quais ingredientes você deseja descobrir hoje?</h2>
             <p class="texto-informativo pt-2">
@@ -67,41 +67,63 @@
         </div>
 
         <div class="container">
-            <form class="d-flex justify-content-center formulario align-items-center" onsubmit="return false;">
+            <form class="formulario" onsubmit="return false;">
+
                 <button type="button" class="btn-adicionar" id="btnPopover">
                     <img class="icon" src="/img/adicionar.png">
                 </button>
 
-                <textarea class="barra-pesquisa-input" type="text" id="pesquisa" name="pesquisa"
-                    placeholder="Pesquise pelos ingredientes..." required></textarea>
+                <!-- CAMPO DE PESQUISA (imagem + texto juntos) -->
+                <div class="campo-pesquisa">
+                    <div class="preview-wrapper" style="display: none;">
+                        <img id="previewImagem" class="preview-foto" />
+                    </div>
+
+
+                    <span class="placeholder-fake">Digite os ingredientes…</span>
+
+                    <textarea class="barra-pesquisa-input" id="pesquisa" name="pesquisa" rows="2" required></textarea>
+                </div>
 
                 <img class="icon" src="/img/lupa.png">
+
             </form>
         </div>
+
 
     </div>
 
     <template id="popup-template">
-        <div class="popup d-flex flex-column gap-2">
+
+        <div class="popup d-flex flex-column gap-2 p-2">
+
             <button class="d-flex align-items-center w-100 p-2">
-                <img class="me-2 icon" src="/img/camera.png">
+                <img class="me-2 icon" src="/img/camera.png" alt="">
                 Tirar Foto
             </button>
 
-            <button class="d-flex align-items-center w-100 p-2">
-                <img class="me-2 icon" src="/img/galeria.png">
+            <button class="d-flex align-items-center w-100 p-2" id="btnGaleria">
+                <img class="me-2 icon" src="/img/galeria.png" alt="">
                 Escolher da Galeria
             </button>
 
+            <!-- input escondido -->
+            <input type="file" id="inputImagem" accept="image/*" hidden />
+
         </div>
+
     </template>
 
 
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/ocr.js"></script>
     <script src="/js/pop-up.js"></script>
     <script src="/js/btn-categoria.js"></script>
     <script src="/js/btn-pesquisa.js"></script>
     <script src="/js/btn-textarea-pesquisa.js"></script>
+
 </body>
 
 </html>

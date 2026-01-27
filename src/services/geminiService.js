@@ -25,11 +25,12 @@ Para cada ingrediente, responda:
 
 Formato da resposta:
 - Um ingrediente por linha
-- Estrutura obrigatoria: ingrediente; finalidade resumida e objetiva
+- Estrutura obrigatoria: ingrediente: finalidade resumida e objetiva.
 - Caso o nome do ingrediente esteja em outro idioma que não seja o português-br, você deve traduzi-lo.
+- Não voltar texto nenhum tipo de formatação (negrito, italico)
 
 Restrições:
-- A resposta deve ter no máximo 3 linhas no total
+- A resposta deve ter no máximo 2 linhas para cada ingrediente
 - Cada explicação deve ser a mais completa possível dentro do limite estabelecido
 - Não emitir opiniões, recomendações ou citar marcas
 - Focar exclusivamente na função do ingrediente dentro da categoria do produto
