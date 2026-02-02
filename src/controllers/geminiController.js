@@ -1,4 +1,5 @@
 import * as geminiService from "../services/geminiService.js";
+import {questaoGemini} from "../data/geminiData.js";
 
 export async function questaoController(req, res) {
     const { categoria, listaIngredientes } = req.body;
@@ -11,4 +12,8 @@ export async function questaoController(req, res) {
     res.json({ resultado });
 };
 
+export async function respostaController() {
+    const resposta = await questaoGemini();
+    console.log(resposta);
+}
 

@@ -6,5 +6,5 @@ export async function processarCategoria(req, res) {
 
     const resultado = await geminiService.processar(categoria);
 
-    res.json({ resultado });
+   res.json({ resultado });
 }

@@ -122,6 +122,7 @@ a.active {
 
 .rodape {
     padding-bottom: 1.5rem;
+    background-color: #2c2022;
 }
 
 .btn-adicionar {
@@ -171,4 +172,40 @@ a.active {
 .popover-body {
     background-color: transparent;
     padding: 0;
+}
+
+
+.balaoMensagem {
+    background-color: #46393ab2;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 16px;
+    max-width: 100%; 
+    width: fit-content;
+    word-break: break-word;
+    white-space: pre-wrap;
+    text-align: left;
+}
+
+.balaoMensagem p{
+    padding-top: 10px;
+}
+
+.img-chat{
+    width: 200px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 6px;
+}
+
+#imagemParaCorte {
+  max-width: 100%;
+  max-height: 70vh;
+  display: block;
+}
+
+.crop-container {
+  width: 100%;
+  height: auto;
 }

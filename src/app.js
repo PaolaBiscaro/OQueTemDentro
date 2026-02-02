@@ -10,9 +10,8 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.json());
 
-// 👇 agora aponta para src/public
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(routes);
+app.use("/", routes);
 
 export default app;

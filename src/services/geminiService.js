@@ -26,7 +26,7 @@ Para cada ingrediente, responda:
 Formato da resposta:
 - Um ingrediente por linha
 - Estrutura obrigatoria: ingrediente: finalidade resumida e objetiva.
-- Caso o nome do ingrediente esteja em outro idioma que não seja o português-br, você deve traduzi-lo.
+- Caso o nome do ingrediente esteja em outro idioma que não seja o português-br, você deve traduzi-lo e colocar a tradução entre parenteses.
 - Não voltar texto nenhum tipo de formatação (negrito, italico)
 
 Restrições:

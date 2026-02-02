@@ -1,13 +1,12 @@
-let popoverInstance = null
+let popoverInstance = null;
+let cropper = null;
+window.imagemSelecionadaUrl = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("btnPopover")
-  const template = document.getElementById("popup-template")
-  const textarea = document.getElementById("pesquisa")
-  const previewImagem = document.getElementById("previewImagem")
-  const previewWrapper = document.querySelector(".preview-wrapper")
+  const btn = document.getElementById("btnPopover");
+  const template = document.getElementById("popup-template");
 
-  if (!btn || !template) return
+  if (!btn || !template) return;
 
   popoverInstance = new bootstrap.Popover(btn, {
     html: true,
@@ -17,47 +16,95 @@ document.addEventListener("DOMContentLoaded", () => {
     container: "body",
     content: template.innerHTML,
     offset: [0, 12]
-  })
+  });
 
+  // 👉 Quando o popover abrir
   btn.addEventListener("shown.bs.popover", () => {
-    const popover = document.querySelector(".popover")
-    if (!popover) return
+    const popover = document.querySelector(".popover");
+    if (!popover) return;
 
-    const btnGaleria = popover.querySelector("#btnGaleria")
-    const inputImagem = popover.querySelector("#inputImagem")
+    const btnGaleria = popover.querySelector("#btnGaleria");
+    const btnTirarFoto = popover.querySelector("#btnTirarFoto");
+    const inputImagem = popover.querySelector("#inputImagem");
 
-    if (!btnGaleria || !inputImagem) return
+    if (!btnGaleria || !btnTirarFoto || !inputImagem) return;
 
-    btnGaleria.onclick = () => inputImagem.click()
+    btnGaleria.onclick = () => {
+      inputImagem.removeAttribute("capture");
+      inputImagem.click();
+    };
 
-    inputImagem.onchange = async () => {
-      const arquivo = inputImagem.files[0]
-      if (!arquivo) return
+    btnTirarFoto.onclick = () => {
+      inputImagem.setAttribute("capture", "environment");
+      inputImagem.click();
+    };
 
-      const imagemUrl = URL.createObjectURL(arquivo)
+    inputImagem.onchange = () => {
+      const arquivo = inputImagem.files[0];
+      if (!arquivo) return;
 
-      // OCR
-      const textoExtraido = await extrairTextoImagem(imagemUrl)
-      textarea.value = textoExtraido.trim()
+      const imagemUrl = URL.createObjectURL(arquivo);
+      const img = document.getElementById("imagemParaCorte");
+      img.src = imagemUrl;
 
-      // preview
-      previewImagem.src = imagemUrl
-      previewWrapper.style.display = "block"
+      const modalEl = document.getElementById("modalCrop");
+      const modal = new bootstrap.Modal(modalEl);
+      modal.show();
 
-      atualizarPlaceholder()
-      popoverInstance.hide()
-    }
-  })
-})
+      modalEl.addEventListener(
+        "shown.bs.modal",
+        () => {
+          if (cropper) cropper.destroy();
 
-document.addEventListener("click", (e) => {
-  const btn = document.getElementById("btnPopover")
-  const popover = document.querySelector(".popover")
+          cropper = new Cropper(img, {
+            viewMode: 1,
+            autoCropArea: 1,
+            movable: true,
+            zoomable: true,
+            scalable: true,
+            responsive: true,
+          });
 
-  if (btn?.contains(e.target)) return
-  if (popover?.contains(e.target)) return
 
-  popoverInstance?.hide()
-})
+        },
+        { once: true }
+      );
+    };
+  });
+});
 
-console.log(extrairTextoImagem)
+// 👉 Botão confirmar corte 
+document.getElementById("btnConfirmarCorte").onclick = async () => {
+  if (!cropper || typeof cropper.getCroppedCanvas !== "function") {
+    console.error("Cropper não inicializado corretamente", cropper);
+    return;
+  }
+
+  const canvas = cropper.getCroppedCanvas({
+    imageSmoothingQuality: "high",
+  });
+
+  window.imagemSelecionadaUrl = canvas.toDataURL("image/jpeg");
+
+  const previewImagem = document.getElementById("previewImagem");
+  const previewWrapper = document.querySelector(".preview-wrapper");
+  const textarea = document.getElementById("pesquisa");
+
+  previewImagem.src = window.imagemSelecionadaUrl;
+  previewWrapper.style.display = "block";
+
+  const textoExtraido = await extrairTextoImagem(window.imagemSelecionadaUrl);
+  textarea.value = textoExtraido.trim();
+  textarea.dispatchEvent(new Event("input"));
+
+  atualizarPlaceholder();
+
+  cropper.destroy();
+  cropper = null;
+
+  bootstrap.Modal.getInstance(
+    document.getElementById("modalCrop")
+  ).hide();
+
+  popoverInstance.hide();
+};

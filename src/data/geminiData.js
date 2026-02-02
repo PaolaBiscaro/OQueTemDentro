@@ -12,6 +12,6 @@ export async function questaoGemini(text) {
     contents: text,
   });
 
-  console.log("Resposta da API:", response.text); 
+  console.log(response.text); 
   return response.text;
 }

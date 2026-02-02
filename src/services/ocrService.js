@@ -8,5 +8,3 @@ import { createWorker } from 'tesseract.js';
   console.log(ret.data.text);
   await worker.terminate();
 })();
-
-//https://www.youtube.com/watch?v=zBET2cEKths&t=97s
