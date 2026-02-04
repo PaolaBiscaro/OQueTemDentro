@@ -14,7 +14,7 @@ function atualizarPlaceholder() {
 textarea.addEventListener("input", atualizarPlaceholder);
 
 
-textarea.addEventListener("keydown", (e) => {
+textarea.addEventListener("keydown", async (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
 
@@ -31,21 +31,21 @@ textarea.addEventListener("keydown", (e) => {
             conteudoIncial.style.display = "none";
         }
 
-        enviarListaIngredientes();
-
         textarea.value = "";
         previewWrapper.style.display = "none";
         previewImagem.innerHTML = "";
         previewImagem.src = "";
         window.imagemSelecionadaUrl = null;
 
-
+        const dados = await enviarListaIngredientes(pesquisaIngredientes);
+        if (dados?.resultado) {
+            adicionarRespostaApi(dados.resultado);
+        }
     }
 });
 
 
-async function enviarListaIngredientes() {
-    const listaIngredientes = textarea.value.trim();
+async function enviarListaIngredientes(listaIngredientes) {
     const categoriaSalva = localStorage.getItem("categoriaSelecionada");
 
     console.log("Categoria enviada:", categoriaSalva);
@@ -62,15 +62,14 @@ async function enviarListaIngredientes() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             categoria: categoriaSalva,
-            listaIngredientes
+            listaIngredientes: listaIngredientes
         })
     });
 
     const dados = await resposta.json();
-    document.getElementById("resultado-ia").innerText = dados.resultado;
+
+    return dados;
 }
-
-
 
 
 function adicionarMensagemUsuario(texto, imagemUrl) {
@@ -96,7 +95,7 @@ function adicionarMensagemUsuario(texto, imagemUrl) {
         img.classList.add("img-chat");
         bolha.appendChild(img);
     }
-    
+
     if (texto) {
         const p = document.createElement("p");
         p.innerText = texto;
@@ -108,6 +107,33 @@ function adicionarMensagemUsuario(texto, imagemUrl) {
     linha.appendChild(colunaVazia);
     linha.appendChild(colunaMensagem);
 
+    chat.appendChild(linha);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+
+function adicionarRespostaApi(texto) {
+    const chat = document.getElementById("pesquisaUsuario");
+
+    const hr = document.createElement("hr");
+    
+    const linha = document.createElement("div");
+    linha.classList.add("row", "mb-2");
+
+    const colunaMensagem = document.createElement("div");
+    colunaMensagem.classList.add("col-12", "text-md-start");
+
+    const bolha = document.createElement("div");
+    bolha.classList.add("balaoResposta");
+
+    const p = document.createElement("p");
+    p.innerText = texto;
+
+    bolha.appendChild(p);
+    colunaMensagem.appendChild(bolha);
+    linha.appendChild(colunaMensagem);
+
+    chat.appendChild(hr);
     chat.appendChild(linha);
     chat.scrollTop = chat.scrollHeight;
 }

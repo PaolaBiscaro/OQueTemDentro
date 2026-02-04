@@ -25,8 +25,8 @@ Para cada ingrediente, responda:
 
 Formato da resposta:
 - Um ingrediente por linha
-- Estrutura obrigatoria: ingrediente: finalidade resumida e objetiva.
-- Caso o nome do ingrediente esteja em outro idioma que não seja o português-br, você deve traduzi-lo e colocar a tradução entre parenteses.
+- Caso o nome do ingrediente esteja em outro idioma que não seja o português-br, você deve traduzi-lo e colocar a tradução entre parenteses, se o iingrediente já estiver com o nome em português-br, não colocar o parenteses
+- Estrutura obrigatoria: ingrediente (tradução - se houver): finalidade resumida e objetiva.
 - Não voltar texto nenhum tipo de formatação (negrito, italico)
 
 Restrições:
@@ -44,12 +44,8 @@ Fontes:
 - Preferencialmente sites técnicos ou científicos
 
 `;
+
     //console.log(TEXT_PROMPT)
     return await questaoGemini(TEXT_PROMPT);
   }
-
-
-
-
-
 }

@@ -12,8 +12,3 @@ export async function questaoController(req, res) {
     res.json({ resultado });
 };
 
-export async function respostaController() {
-    const resposta = await questaoGemini();
-    console.log(resposta);
-}
-
