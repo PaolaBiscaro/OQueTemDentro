@@ -23,24 +23,37 @@ Para cada ingrediente, responda:
 - Qual sua função?
 - Como ele contribui para o obejtivo do produto, com base na categoria informada?
 
-Formato da resposta:
-- Um ingrediente por linha
-- Caso o nome do ingrediente esteja em outro idioma que não seja o português-br, você deve traduzi-lo e colocar a tradução entre parenteses, se o iingrediente já estiver com o nome em português-br, não colocar o parenteses
-- Estrutura obrigatoria: ingrediente (tradução - se houver): finalidade resumida e objetiva.
-- Não voltar texto nenhum tipo de formatação (negrito, italico)
+Formato OBRIGATORIO da resposta:
+Retorne EXCLUSIVAMENTE um JSON válido, sem texto adicional, sem comenttários e sem formatação.
+Estrutura exata do JSON:
+
+{
+  "resultado": [
+    {
+      "ingrediente": "nome do ingrediente em português",
+      "descricao": "descrição objetiva da função do ingrediente no produto"
+    }
+  ],
+  "fontes": [
+    "link1",
+    "link2"
+  ]
+}
 
 Restrições:
+- Um objeto por ingrediente
 - A resposta deve ter no máximo 2 linhas para cada ingrediente
 - Cada explicação deve ser a mais completa possível dentro do limite estabelecido
 - Não emitir opiniões, recomendações ou citar marcas
 - Focar exclusivamente na função do ingrediente dentro da categoria do produto
-- Caso a lista contenha ingredientes tipicamente farmacêuticos (ex: medicamentos), retornar apenas a mensagem:
-  "A lista informada não condiz com a categoria do produto"
+- Caso a lista contenha ingredientes tipicamente farmacêuticos (ex: medicamentos), ou os ingredientes não forem compativeis com a categoria, retornar apenas a mensagem:
+  {
+  "erro": "A lista informada não condiz com a categoria do produto"
+}
 - Utilizar linguagem neutra e informativa
 - As respostas devem ser o mais explicadas possivel
 
 Fontes:
-- Informar as fontes de pesquisa ao final da resposta, em formato de links
 - Preferencialmente sites técnicos ou científicos
 
 `;

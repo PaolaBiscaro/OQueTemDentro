@@ -39,7 +39,10 @@ textarea.addEventListener("keydown", async (e) => {
 
         const dados = await enviarListaIngredientes(pesquisaIngredientes);
         if (dados?.resultado) {
-            adicionarRespostaApi(dados.resultado);
+            adicionarRespostaApi(
+                "Resultado da pesquisa dos ingredientes:",
+                dados.resultado
+            );
         }
     }
 });
@@ -67,6 +70,15 @@ async function enviarListaIngredientes(listaIngredientes) {
     });
 
     const dados = await resposta.json();
+    console.log("Resposta da API:", dados);
+    if (typeof dados.resultado === "string") {
+        const jsonLimpo = dados.resultado
+            .replace(/```json/g, "")
+            .replace(/```/g, "")
+            .trim();
+
+        return JSON.parse(jsonLimpo);
+    }
 
     return dados;
 }
@@ -112,11 +124,18 @@ function adicionarMensagemUsuario(texto, imagemUrl) {
 }
 
 
-function adicionarRespostaApi(texto) {
+function tabelaListaIngredientes(pesquisaIngredientes) {
+
+    return pesquisaIngredientes.split(":").map(i => i.trim());
+
+}
+
+
+function adicionarRespostaApi(texto, lista) {
     const chat = document.getElementById("pesquisaUsuario");
 
     const hr = document.createElement("hr");
-    
+
     const linha = document.createElement("div");
     linha.classList.add("row", "mb-2");
 
@@ -129,7 +148,39 @@ function adicionarRespostaApi(texto) {
     const p = document.createElement("p");
     p.innerText = texto;
 
+    const tabela = document.createElement("table");
+    tabela.classList.add("table", "table-sm");
+
+    const thead = document.createElement("thead");
+    thead.innerHTML = `
+        <tr>
+            <th>Ingrediente</th>
+            <th>Resultado</th>
+        </tr>
+    `;
+
+    const tbody = document.createElement("tbody");
+
+    lista.forEach(item => {
+        const tr = document.createElement("tr");
+
+        const tdIngrediente = document.createElement("td");
+        tdIngrediente.innerText = item.ingrediente;
+
+        const tdResultado = document.createElement("td");
+        tdResultado.innerText = item.descricao;
+
+        tr.appendChild(tdIngrediente);
+        tr.appendChild(tdResultado);
+        tbody.appendChild(tr);
+    });
+
+    tabela.appendChild(thead);
+    tabela.appendChild(tbody);
+
     bolha.appendChild(p);
+    bolha.appendChild(tabela);
+
     colunaMensagem.appendChild(bolha);
     linha.appendChild(colunaMensagem);
 
@@ -137,3 +188,4 @@ function adicionarRespostaApi(texto) {
     chat.appendChild(linha);
     chat.scrollTop = chat.scrollHeight;
 }
+
