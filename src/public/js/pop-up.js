@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("btnPopover");
   const template = document.getElementById("popup-template");
 
+
+
   if (!btn || !template) return;
 
   popoverInstance = new bootstrap.Popover(btn, {
@@ -18,9 +20,22 @@ document.addEventListener("DOMContentLoaded", () => {
     offset: [0, 12]
   });
 
-  // 👉 Quando o popover abrir
+
+  document.addEventListener("click", (e) => {
+    const popoverAberto = document.querySelector(".popover");
+
+    if (!popoverAberto) {
+      return;
+    }
+    if (popoverInstance && !btn.contains(e.target) && !e.target.closest('.popover')) {
+      popoverInstance.hide();
+    }
+  })
+
+
   btn.addEventListener("shown.bs.popover", () => {
     const popover = document.querySelector(".popover");
+
     if (!popover) return;
 
     const btnGaleria = popover.querySelector("#btnGaleria");
@@ -42,6 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
     inputImagem.onchange = () => {
       const arquivo = inputImagem.files[0];
       if (!arquivo) return;
+
+      popoverInstance.hide();
 
       const imagemUrl = URL.createObjectURL(arquivo);
       const img = document.getElementById("imagemParaCorte");
@@ -73,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// 👉 Botão confirmar corte 
+
 document.getElementById("btnConfirmarCorte").onclick = async () => {
   if (!cropper || typeof cropper.getCroppedCanvas !== "function") {
     console.error("Cropper não inicializado corretamente", cropper);
