@@ -37,7 +37,12 @@ textarea.addEventListener("keydown", async (e) => {
         previewImagem.src = "";
         window.imagemSelecionadaUrl = null;
 
+        exibirIndicadorDigitando();
+
         const dados = await enviarListaIngredientes(pesquisaIngredientes);
+
+        removerIndicadorDigitando();
+
         if (dados?.resultado) {
             adicionarRespostaApi(
                 "Resultado da pesquisa dos ingredientes:",
@@ -124,13 +129,6 @@ function adicionarMensagemUsuario(texto, imagemUrl) {
 }
 
 
-function tabelaListaIngredientes(pesquisaIngredientes) {
-
-    return pesquisaIngredientes.split(":").map(i => i.trim());
-
-}
-
-
 function adicionarRespostaApi(texto, lista) {
     const chat = document.getElementById("pesquisaUsuario");
 
@@ -152,12 +150,6 @@ function adicionarRespostaApi(texto, lista) {
     tabela.classList.add("table", "table-sm");
 
     const thead = document.createElement("thead");
-    thead.innerHTML = `
-        <tr>
-            <th>Ingrediente</th>
-            <th>Resultado</th>
-        </tr>
-    `;
 
     const tbody = document.createElement("tbody");
 
@@ -166,9 +158,12 @@ function adicionarRespostaApi(texto, lista) {
 
         const tdIngrediente = document.createElement("td");
         tdIngrediente.innerText = item.ingrediente;
+        tdIngrediente.classList.add("fonte-ingrediente")
 
         const tdResultado = document.createElement("td");
         tdResultado.innerText = item.descricao;
+        tdResultado.style.color = "#ffffffce";
+        tdResultado.classList.add("fonte-resposta")
 
         tr.appendChild(tdIngrediente);
         tr.appendChild(tdResultado);
@@ -189,3 +184,26 @@ function adicionarRespostaApi(texto, lista) {
     chat.scrollTop = chat.scrollHeight;
 }
 
+
+function exibirIndicadorDigitando(){
+    const chat = document.getElementById("pesquisaUsuario");
+    const indicador = document.createElement("div");
+    indicador.id = "digitando-ia";
+    indicador.className = "row mb-2";
+    indicador.innerHTML = `
+        <div class="col-12 d-flex justify-content-start">
+            <div class="typing-indicator">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    `;
+    chat.appendChild(indicador);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function removerIndicadorDigitando(){
+    const indicador = document.getElementById("digitando-ia");
+    if(indicador){
+        indicador.remove();
+    }
+}
